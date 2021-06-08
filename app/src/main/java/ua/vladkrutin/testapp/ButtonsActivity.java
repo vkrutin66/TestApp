@@ -30,8 +30,6 @@ import java.util.ArrayList;
 
 public class ButtonsActivity extends AppCompatActivity {
 
-
-
     ArrayList<VideoButton> videoButtons;
 
     private final String API_KEY = "AIzaSyAOwqWgNCX9l7FrE9pX0YAB3ZGN09jEZuA";
@@ -50,6 +48,8 @@ public class ButtonsActivity extends AppCompatActivity {
 
     private void goToVideoScreen(String videosInfo, String videoLink) {
         Intent intent = new Intent(ButtonsActivity.this, VideoActivity.class);
+        intent.putExtra("videosInfo", videosInfo);
+        intent.putExtra("videoLink", videoLink);
         startActivity(intent);
     }
 
@@ -81,23 +81,6 @@ public class ButtonsActivity extends AppCompatActivity {
         }
     }
 
-    private static final String DEVELOPER_KEY = "AIzaSyAOwqWgNCX9l7FrE9pX0YAB3ZGN09jEZuA";
-
-    private static final String APPLICATION_NAME = "TestApp";
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-
-    /**
-     * Build and return an authorized API client service.
-     *
-     * @return an authorized API client service
-     * @throws GeneralSecurityException, IOException
-     */
-    public static YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        return new YouTube.Builder(httpTransport, JSON_FACTORY, null)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    }
 
     // метод для получения списка видео
     private void getVideoList() {
@@ -115,6 +98,8 @@ public class ButtonsActivity extends AppCompatActivity {
         doGet();
 
     }
+
+    // get запросс но он не работает с ютуб
     public void doGet() {
         String urlString = "https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&channelId=UCP_IYZTiqbmUqmI3KXHIEoQ&key=" + API_KEY;
 
